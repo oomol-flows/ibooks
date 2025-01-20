@@ -1,0 +1,13 @@
+{
+  "nodes": {
+    "list-books#1": {
+      "contentWidth": 450,
+      "rfNode": {
+        "position": {
+          "x": 369,
+          "y": 122
+        }
+      }
+    }
+  }
+}

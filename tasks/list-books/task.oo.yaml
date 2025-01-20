@@ -1,0 +1,59 @@
+inputs_def:
+  - handle: documents
+    description: Input
+    json_schema:
+      type: string
+      ui:widget: dir
+  - handle: limit
+    json_schema:
+      type: integer
+      exclusiveMinimum: 0
+    nullable: true
+    value:
+outputs_def:
+  - handle: books
+    json_schema:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        required:
+          - id
+          - entity
+          - path
+          - updated_at
+        properties:
+          id:
+            type: string
+          entity:
+            enum:
+              - epub
+              - pdf
+            ui:options:
+              labels:
+                - Epub
+                - PDF
+          title:
+            type: string
+          short_title:
+            type: string
+          author:
+            type: string
+          short_author:
+            type: string
+          genre:
+            type: string
+          description:
+            type: string
+          path:
+            type: string
+          updated_at:
+            type: number
+ui:
+  default_width: 450
+executor:
+  name: python
+  options:
+    spawn: false
+    entry: __init__.py
+title: List books
