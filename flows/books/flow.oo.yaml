@@ -7,3 +7,13 @@ nodes:
         value: /oomol-driver/ibooks_documents
       - handle: limit
         value:
+  - task: self::read-highlights
+    title: "Read highlights #1"
+    node_id: read-highlights#1
+    inputs_from:
+      - handle: id
+        value: F0D59BB0A918897FEB02B438B595FB41
+      - handle: documents
+        value: /oomol-driver/ibooks_documents
+      - handle: limit
+        value:

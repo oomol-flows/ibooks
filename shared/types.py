@@ -15,3 +15,13 @@ class Book:
   description: str | None
   path: str
   updated_at: float
+
+@dataclass
+class Anotation:
+  id: str
+  epubcfi: str
+  note: str | None
+  selected: str
+  representative: str
+  created_at: float
+  updated_at: float

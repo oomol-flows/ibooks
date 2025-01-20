@@ -1,0 +1,26 @@
+inputs_def:
+  - handle: id
+    description: Input
+    json_schema:
+      type: string
+  - handle: documents
+    json_schema:
+      type: string
+      ui:widget: dir
+    nullable: false
+  - handle: limit
+    json_schema:
+      type: integer
+      exclusiveMinimum: 0
+    nullable: true
+    value:
+outputs_def:
+  []
+ui:
+  default_width: 450
+executor:
+  name: python
+  options:
+    spawn: false
+    entry: __init__.py
+title: Read highlights

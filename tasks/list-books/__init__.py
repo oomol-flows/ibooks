@@ -2,11 +2,9 @@ import os
 import sqlite3
 
 from oocana import Context
-from shared.utils import find_matched_file
+from shared import APPLE_OFFSET
+from shared.utils import find_matched_file, norm_path, as_none, with_short
 from shared.types import Book, BookEntity
-
-# 不知为何 iBooks 读的时间差总是差了这个值
-APPLE_OFFSET: float = 980210832.131647
 
 def main(params: dict, context: Context):
   documents_path: str = params["documents"]
@@ -45,8 +43,8 @@ def _list_books(sqlite_path: str, limit: int | None):
       entity = _parse_entity(row[0])
       if entity is None:
         continue
-      title, short_title = _with_short(row[2], row[3])
-      author, short_author = _with_short(row[4], row[5])
+      title, short_title = with_short(row[2], row[3])
+      author, short_author = with_short(row[4], row[5])
       yield Book(
         id=row[1],
         entity=entity,
@@ -54,9 +52,9 @@ def _list_books(sqlite_path: str, limit: int | None):
         short_title=short_title,
         author=author,
         short_author=short_author,
-        genre=_as_none(row[6]),
-        description=_as_none(row[7]),
-        path=_norm_path(row[8]),
+        genre=as_none(row[6]),
+        description=as_none(row[7]),
+        path=norm_path(row[8]),
         updated_at=row[9] + APPLE_OFFSET,
       )
 
@@ -68,27 +66,3 @@ def _parse_entity(entity: int) -> BookEntity | None:
     return "pdf"
   else:
     return None
-
-def _norm_path(path: str):
-  cells = path.split("/iCloud~com~apple~iBooks/Documents/")
-  if len(cells) > 1:
-    return cells[-1]
-  else:
-    return path
-
-def _with_short(full: str, short: str):
-  _full = _as_none(full)
-  _short = _as_none(short)
-
-  if _full is None:
-    return _short, None
-  else:
-    return _full, _short
-
-def _as_none(text: str | None):
-  if text is None:
-    return None
-  elif text.strip() == "":
-    return None
-  else:
-    return text
