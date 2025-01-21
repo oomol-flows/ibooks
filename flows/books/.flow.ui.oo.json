@@ -17,6 +17,54 @@
           "y": 122
         }
       }
+    },
+    "+python#1": {
+      "contentWidth": 450,
+      "rfNode": {
+        "position": {
+          "x": 1605,
+          "y": 120
+        }
+      },
+      "sections": {
+        "inputs": {
+          "collapsed": {
+            "highlights": {
+              "[]": true
+            }
+          }
+        },
+        "scriptlet": {
+          "cardCollapsed": true
+        }
+      }
+    },
+    "html-preview#1": {
+      "contentWidth": 666.3909167764925,
+      "rfNode": {
+        "position": {
+          "x": 2213.651789176934,
+          "y": 345.36148421885275
+        }
+      }
+    },
+    "encode-string#1": {
+      "contentWidth": 350,
+      "rfNode": {
+        "position": {
+          "x": 2213.651789176934,
+          "y": 28.6674687136399
+        }
+      }
+    },
+    "write-file#2": {
+      "contentWidth": 450,
+      "rfNode": {
+        "position": {
+          "x": 2647.3727392902965,
+          "y": -52.33253128636011
+        }
+      }
     }
   }
 }
