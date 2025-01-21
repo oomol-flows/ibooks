@@ -3,6 +3,13 @@ scripts:
   # Script executed when the container is first loaded
   # eg: bootstrap: pip install pandas
   bootstrap: |
-    npm install
+    set -e
+    pip install --upgrade pip
     pip install -r requirements.txt
+    git clone https://github.com/Moskize91/epubcfi.git /tmp/epubcfi
+    cd /tmp/epubcfi
+    git reset --hard 96697bad0b8708ca188ca04d5982815d4be387f7
+    mv src/epubcfi /app/workspace/epubcfi
+    cd /app/workspace
+    rm -rf /tmp/epubcfi
 icon: ./icon.png
