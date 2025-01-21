@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import Literal
+from epubcfi import ParsedPath
 
 BookEntity = Literal["epub", "pdf"]
 
@@ -19,7 +20,7 @@ class Book:
 @dataclass
 class Anotation:
   id: str
-  epubcfi: str
+  epubcfi: ParsedPath | None
   note: str | None
   selected: str
   representative: str

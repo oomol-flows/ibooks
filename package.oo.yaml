@@ -8,7 +8,7 @@ scripts:
     pip install -r requirements.txt
     git clone https://github.com/Moskize91/epubcfi.git /tmp/epubcfi
     cd /tmp/epubcfi
-    git reset --hard 96697bad0b8708ca188ca04d5982815d4be387f7
+    git reset --hard 2f6db9bcbd0fd52f8ccf08dfbd5e0abdbdf04466
     mv src/epubcfi /app/workspace/epubcfi
     cd /app/workspace
     rm -rf /tmp/epubcfi
