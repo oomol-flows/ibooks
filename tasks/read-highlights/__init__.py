@@ -5,6 +5,7 @@ import functools
 
 from typing import Any
 from oocana import Context
+from epubcfi.parser import ParsedPath
 from shared import APPLE_OFFSET
 from shared.utils import find_matched_file, as_none
 from shared.types import Anotation
@@ -24,7 +25,7 @@ def main(params: dict, context: Context):
   return { "highlights": [
     {
       **highlight.__dict__,
-      "epubcfi": None if highlight.epubcfi is None else epubcfi.format(highlight.epubcfi),
+      "epubcfi": _str_epubcfi(highlight.epubcfi),
     }
     for _, highlight in highlights
   ]}
@@ -67,6 +68,12 @@ def _list_highlights(sqlite_path: str, id: str, limit: int | None):
         created_at=row[5] + APPLE_OFFSET,
         updated_at=row[6] + APPLE_OFFSET,
       )
+
+def _str_epubcfi(cfi: ParsedPath | None):
+  if cfi is None:
+    return None
+  text = epubcfi.format(cfi)
+  return f"epubcfi({text})"
 
 def _to_nums(path: epubcfi.ParsedPath | None):
   if path is None:
