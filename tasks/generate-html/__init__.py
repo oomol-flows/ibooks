@@ -3,6 +3,7 @@ from html import escape
 from epubcfi import parse
 from epubcfi.parser import ParsedPath
 from shared.types import Book, Anotation
+from .source import render_source
 
 def main(params: dict):
   styles: str | None = params["styles"]
@@ -55,21 +56,21 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
     buffer.write(escape(book.description))
     buffer.write("</p>\n")
 
-  for highlight in _search_highlights(highlights):
-    if highlight.selected is None and highlight.note is None:
+  for annotation in _search_annotations(highlights):
+    if annotation.selected is None and annotation.note is None:
       continue
-    if highlight.selected is not None:
-      buffer.write('<div class="row source">')
-      buffer.write(f'<img class="icon" src="{a_icon}"/>')
-      buffer.write('<p class="text">')
-      buffer.write(escape(highlight.selected))
-      buffer.write("</p></div>\n")
 
-    if highlight.note is not None:
+    buffer.write('<div class="row source">')
+    buffer.write(f'<img class="icon" src="{a_icon}"/>')
+    buffer.write('<p class="text">')
+    render_source(buffer, annotation)
+    buffer.write("</p></div>\n")
+
+    if annotation.note is not None:
       buffer.write('<div class="row note">')
       buffer.write(f'<img class="icon" src="{chat_icon}"/>')
-      buffer.write(f'<p class="text highlight-style-{highlight.style_id}">')
-      buffer.write(escape(highlight.note))
+      buffer.write(f'<p class="text highlight-style-{annotation.style_id}">')
+      buffer.write(escape(annotation.note))
       buffer.write("</p></div>\n")
 
     buffer.write('<div class="row by-date">')
@@ -79,7 +80,7 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
 
   buffer.write("</div></body>\n")
 
-def _search_highlights(highlights: list[dict]):
+def _search_annotations(highlights: list[dict]):
   for highlight in highlights:
     expression: str | None = highlight["epubcfi"]
     path: ParsedPath | None = None
