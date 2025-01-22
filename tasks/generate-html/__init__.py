@@ -1,5 +1,6 @@
 from io import StringIO
 from html import escape
+from markdown import markdown
 from datetime import datetime
 from epubcfi import parse
 from epubcfi.parser import ParsedPath
@@ -70,9 +71,9 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
     if annotation.note is not None:
       buffer.write('<div class="row">')
       buffer.write(f'<img class="icon" src="{chat_icon}"/>')
-      buffer.write(f'<p class="note note-style-{annotation.style_id}">')
-      buffer.write(escape(annotation.note))
-      buffer.write("</p></div>\n")
+      buffer.write(f'<div class="note note-style-{annotation.style_id}">')
+      buffer.write(markdown(annotation.note))
+      buffer.write("</div></div>\n")
 
     buffer.write('<div class="by-date">')
     if abs(annotation.created_at - annotation.updated_at) < 5.0:

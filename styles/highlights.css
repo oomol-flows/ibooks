@@ -21,12 +21,15 @@ div.source {
   margin-top: 24px;
 }
 
-p.note {
+div.note {
   border: 1px solid rgba(34, 34, 34, 0.10);
   box-sizing: border-box;
-  font-weight: normal;
   padding: 8px 12px;
   border-radius: 4px;
+}
+
+div.note p {
+  font-weight: normal;
 }
 
 div.by-date {
@@ -34,7 +37,7 @@ div.by-date {
   flex-direction: row;
   justify-content: flex-end;
   padding-right: 32px;
-  color: rgba(34, 34, 34, 0.5);
+  color: rgba(34, 34, 34, 0.561);
   font-size: 0.875em;
   font-weight: normal;
 }
