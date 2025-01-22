@@ -4,7 +4,7 @@ from markdown import markdown
 from datetime import datetime
 from epubcfi import parse
 from epubcfi.parser import ParsedPath
-from shared.types import Book, Anotation
+from shared.types import Book, Annotation
 from .source import render_source
 
 def main(params: dict):
@@ -62,9 +62,16 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
     if annotation.selected is None and annotation.note is None:
       continue
 
+    cfi_url = _cfi_url(book, annotation)
     buffer.write('<div class="row source">')
+
+    if cfi_url is not None:
+      buffer.write(f'<a href="{cfi_url}">')
     buffer.write(f'<img class="icon" src="{a_icon}"/>')
-    buffer.write('<p>')
+    if cfi_url is not None:
+      buffer.write("</a>")
+
+    buffer.write("<p>")
     render_source(buffer, annotation)
     buffer.write("</p></div>\n")
 
@@ -91,9 +98,15 @@ def _search_annotations(highlights: list[dict]):
     if expression is not None:
       path = parse(expression)
     highlight["epubcfi"] = path
-    yield Anotation(**highlight)
+    yield Annotation(**highlight)
 
 def _format(timestamp: float) -> str:
   date = datetime.fromtimestamp(timestamp)
   format = date.strftime('%Y-%m-%d %H:%M:%S')
   return format
+
+def _cfi_url(book: Book, annotation: Annotation):
+  epubcfi = annotation.epubcfi
+  if epubcfi is None:
+    return None
+  return f"ibooks://assetid/{book.id}#epubcfi({epubcfi})"
