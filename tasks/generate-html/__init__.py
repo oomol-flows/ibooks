@@ -42,7 +42,7 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
   a_icon = "https://api.iconify.design/academicons:academia-square.svg?color=%23888888"
   chat_icon = "https://api.iconify.design/fluent-mdl2:message.svg?color=%23888888"
 
-  buffer.write('<body><div>\n')
+  buffer.write('<body><div class="root"><div class="content">\n')
 
   if title is not None:
     buffer.write("<h1>")
@@ -82,7 +82,7 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
       buffer.write(f'<p class="dateAndAuthor">Updated at {_format(annotation.updated_at)}</p>')
     buffer.write("</div>\n")
 
-  buffer.write("</div></body>\n")
+  buffer.write("</div></div></body>\n")
 
 def _search_annotations(highlights: list[dict]):
   for highlight in highlights:
