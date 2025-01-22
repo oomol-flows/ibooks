@@ -1,6 +1,6 @@
 from io import StringIO
 from html import escape
-from epubcfi import split
+from epubcfi import parse
 from epubcfi.parser import ParsedPath
 from shared.types import Anotation
 
@@ -70,6 +70,6 @@ def _search_highlights(highlights: list[dict]):
     expression: str | None = highlight["epubcfi"]
     path: ParsedPath | None = None
     if expression is not None:
-      _, path = split(expression)
+      path = parse(expression)
     highlight["epubcfi"] = path
     yield Anotation(**highlight)

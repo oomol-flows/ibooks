@@ -9,7 +9,7 @@ scripts:
     rm -rf /app/workspace/epubcfi
     git clone https://github.com/Moskize91/epubcfi.git /tmp/epubcfi
     cd /tmp/epubcfi
-    git reset --hard 2f6db9bcbd0fd52f8ccf08dfbd5e0abdbdf04466
+    git reset --hard 673182efa46c47e44ad4af63c4bb654eef6bbc34
     mv src/epubcfi /app/workspace/epubcfi
     cd /app/workspace
     rm -rf /tmp/epubcfi
