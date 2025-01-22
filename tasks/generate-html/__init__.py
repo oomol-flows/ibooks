@@ -40,7 +40,7 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
   a_icon = "https://api.iconify.design/academicons:academia-square.svg?color=%23888888"
   chat_icon = "https://api.iconify.design/fluent-mdl2:message.svg?color=%23888888"
 
-  buffer.write('<body><div class="content">\n')
+  buffer.write('<body><div>\n')
 
   if title is not None:
     buffer.write("<h1>")
@@ -52,7 +52,7 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
     buffer.write("</p>\n")
 
   if book.description is not None:
-    buffer.write('<p class="text">')
+    buffer.write('<p>')
     buffer.write(escape(book.description))
     buffer.write("</p>\n")
 
@@ -62,20 +62,19 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
 
     buffer.write('<div class="row source">')
     buffer.write(f'<img class="icon" src="{a_icon}"/>')
-    buffer.write('<p class="text">')
+    buffer.write('<p>')
     render_source(buffer, annotation)
     buffer.write("</p></div>\n")
 
     if annotation.note is not None:
-      buffer.write('<div class="row note">')
+      buffer.write('<div class="row">')
       buffer.write(f'<img class="icon" src="{chat_icon}"/>')
-      buffer.write(f'<p class="text highlight-style-{annotation.style_id}">')
+      buffer.write(f'<p class="note note-style-{annotation.style_id}">')
       buffer.write(escape(annotation.note))
       buffer.write("</p></div>\n")
 
-    buffer.write('<div class="row by-date">')
-    buffer.write('<p class="text page">6</p>\n')
-    buffer.write('<p class="text dateAndAuthor">12月 19, 17:24, Tom</p>')
+    buffer.write('<div class="by-date">')
+    buffer.write('<p class="dateAndAuthor">12月 19, 17:24, Tom</p>')
     buffer.write("</div>\n")
 
   buffer.write("</div></body>\n")
