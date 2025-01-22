@@ -27,6 +27,7 @@ def _search_highlights(sqlite_path: str, id: str, limit: int | None):
         ZANNOTATIONNOTE,
         ZANNOTATIONSELECTEDTEXT,
         ZANNOTATIONREPRESENTATIVETEXT,
+        ZANNOTATIONSTYLE,
         ZANNOTATIONCREATIONDATE,
         ZANNOTATIONMODIFICATIONDATE
       FROM ZAEANNOTATION
@@ -52,6 +53,7 @@ def _search_highlights(sqlite_path: str, id: str, limit: int | None):
           note=as_none(row[2]),
           selected=row[3],
           representative=row[4],
-          created_at=row[5] + APPLE_OFFSET,
-          updated_at=row[6] + APPLE_OFFSET,
+          style_id=row[5],
+          created_at=row[6] + APPLE_OFFSET,
+          updated_at=row[7] + APPLE_OFFSET,
         )

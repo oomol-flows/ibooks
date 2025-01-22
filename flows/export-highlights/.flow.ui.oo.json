@@ -7,6 +7,15 @@
           "x": 1046.9390225312254,
           "y": -110.52181075587369
         }
+      },
+      "sections": {
+        "outputs": {
+          "collapsed": {
+            "book": {
+              "[]": true
+            }
+          }
+        }
       }
     },
     "html-preview#1": {
@@ -42,6 +51,15 @@
         "position": {
           "x": 1605,
           "y": 120
+        }
+      },
+      "sections": {
+        "inputs": {
+          "collapsed": {
+            "book": {
+              "[]": true
+            }
+          }
         }
       }
     },

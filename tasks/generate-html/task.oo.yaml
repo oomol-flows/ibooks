@@ -1,9 +1,41 @@
 inputs_def:
-  - handle: title
+  - handle: book
     json_schema:
-      type: string
-    nullable: true
-    value:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - entity
+        - path
+        - updated_at
+      properties:
+        id:
+          type: string
+        entity:
+          enum:
+            - epub
+            - pdf
+          ui:options:
+            labels:
+              - Epub
+              - PDF
+        title:
+          type: string
+        short_title:
+          type: string
+        author:
+          type: string
+        short_author:
+          type: string
+        genre:
+          type: string
+        description:
+          type: string
+        path:
+          type: string
+        updated_at:
+          type: number
+    nullable: false
   - handle: highlights
     description: Input
     json_schema:
@@ -36,8 +68,8 @@ inputs_def:
     json_schema:
       type: string
       ui:widget: text
-    nullable: true
     value:
+    nullable: true
 outputs_def:
   - handle: html
     description: Output

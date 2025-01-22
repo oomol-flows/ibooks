@@ -24,5 +24,6 @@ class Anotation:
   note: str | None
   selected: str
   representative: str
+  style_id: int
   created_at: float
   updated_at: float
