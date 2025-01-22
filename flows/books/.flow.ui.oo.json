@@ -1,14 +1,5 @@
 {
   "nodes": {
-    "list-books#1": {
-      "contentWidth": 450,
-      "rfNode": {
-        "position": {
-          "x": 433.78429427610945,
-          "y": -3.6600635722825245
-        }
-      }
-    },
     "read-highlights#1": {
       "contentWidth": 450,
       "rfNode": {
@@ -19,7 +10,7 @@
       }
     },
     "html-preview#1": {
-      "contentWidth": 666.3909167764925,
+      "contentWidth": 836.813610638625,
       "rfNode": {
         "position": {
           "x": 2213.651789176934,
@@ -60,15 +51,6 @@
         "position": {
           "x": 969.9390225312254,
           "y": 273.6674687136399
-        }
-      }
-    },
-    "read-file#2": {
-      "contentWidth": 350,
-      "rfNode": {
-        "position": {
-          "x": 533.7842942761094,
-          "y": 297.86916493928044
         }
       }
     }

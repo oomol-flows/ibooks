@@ -1,12 +1,4 @@
 nodes:
-  - task: self::list-books
-    title: "List books #1"
-    node_id: list-books#1
-    inputs_from:
-      - handle: documents
-        value: /oomol-driver/ibooks_documents
-      - handle: limit
-        value:
   - task: self::read-highlights
     title: "Read highlights #1"
     node_id: read-highlights#1
@@ -64,7 +56,7 @@ nodes:
           - node_id: +python#1
             output_handle: text
       - handle: title
-        value:
+        value: 性别麻烦
   - task:
       ui:
         default_width: 450
@@ -88,10 +80,4 @@ nodes:
     node_id: +python#1
     inputs_from:
       - handle: file_path
-        value: /app/workspace/styles/highlights.css
-  - task: oomol-file::read-file
-    title: "Read file #2"
-    node_id: read-file#2
-    inputs_from:
-      - handle: file
         value: /app/workspace/styles/highlights.css
