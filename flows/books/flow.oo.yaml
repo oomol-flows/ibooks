@@ -17,63 +17,13 @@ nodes:
         value: /oomol-driver/ibooks_documents
       - handle: limit
         value:
-  - task:
-      ui:
-        default_width: 450
-      inputs_def:
-        - handle: highlights
-          description: Input
-          json_schema:
-            type: array
-            items:
-              type: object
-              additionalProperties: false
-              required:
-                - id
-                - selected
-                - representative
-                - created_at
-                - updated_at
-              properties:
-                id:
-                  type: string
-                epubcfi:
-                  type: string
-                note:
-                  type: string
-                selected:
-                  type: string
-                representative:
-                  type: string
-                created_at:
-                  type: number
-                updated_at:
-                  type: number
-      outputs_def:
-        - handle: html
-          description: Output
-          json_schema:
-            type: string
-            ui:widget: text
-      executor:
-        name: python
-        options:
-          entry: scriptlets/+python#1.py
-    title: Generate HTML
-    icon: ":logos:python:"
-    node_id: +python#1
-    inputs_from:
-      - handle: highlights
-        from_node:
-          - node_id: read-highlights#1
-            output_handle: highlights
   - task: oomol-preview::html-preview
     title: "HTML preview #1"
     node_id: html-preview#1
     inputs_from:
       - handle: html
         from_node:
-          - node_id: +python#1
+          - node_id: generate-html#1
             output_handle: html
   - task: oomol-transform::encode-string
     title: "Encode string #1"
@@ -81,7 +31,7 @@ nodes:
     inputs_from:
       - handle: string
         from_node:
-          - node_id: +python#1
+          - node_id: generate-html#1
             output_handle: html
       - handle: encoding
         value: utf_8
@@ -101,3 +51,47 @@ nodes:
         value: false
       - handle: when_file_exists
         value: override
+  - task: self::generate-html
+    title: "Generate HTML #1"
+    node_id: generate-html#1
+    inputs_from:
+      - handle: highlights
+        from_node:
+          - node_id: read-highlights#1
+            output_handle: highlights
+      - handle: styles
+        from_node:
+          - node_id: +python#1
+            output_handle: text
+      - handle: title
+        value:
+  - task:
+      ui:
+        default_width: 450
+      inputs_def:
+        - handle: file_path
+          description: Input
+          json_schema:
+            type: string
+            ui:widget: file
+      outputs_def:
+        - handle: text
+          description: Output
+          json_schema:
+            type: string
+      executor:
+        name: python
+        options:
+          entry: scriptlets/+python#1.py
+    title: Load file
+    icon: ":logos:python:"
+    node_id: +python#1
+    inputs_from:
+      - handle: file_path
+        value: /app/workspace/styles/highlights.css
+  - task: oomol-file::read-file
+    title: "Read file #2"
+    node_id: read-file#2
+    inputs_from:
+      - handle: file
+        value: /app/workspace/styles/highlights.css
