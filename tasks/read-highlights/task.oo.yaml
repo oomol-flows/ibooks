@@ -15,6 +15,42 @@ inputs_def:
     nullable: true
     value:
 outputs_def:
+  - handle: book
+    json_schema:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - entity
+        - path
+        - updated_at
+      properties:
+        id:
+          type: string
+        entity:
+          enum:
+            - epub
+            - pdf
+          ui:options:
+            labels:
+              - Epub
+              - PDF
+        title:
+          type: string
+        short_title:
+          type: string
+        author:
+          type: string
+        short_author:
+          type: string
+        genre:
+          type: string
+        description:
+          type: string
+        path:
+          type: string
+        updated_at:
+          type: number
   - handle: highlights
     json_schema:
       type: array

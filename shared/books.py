@@ -11,7 +11,7 @@ def search_books(documents_path: str, limit: int | None) -> Generator[Book, None
   for book in _list_books(sqlite_path, limit):
     yield book
 
-def book(documents_path: str, setid: str) -> Book | None:
+def get_book(documents_path: str, setid: str) -> Book | None:
   sqlite_path = _sqlite_path(documents_path)
   with sqlite3.connect(sqlite_path) as conn:
     cursor = conn.cursor()

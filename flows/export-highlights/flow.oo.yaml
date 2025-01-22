@@ -51,8 +51,11 @@ nodes:
         from_node:
           - node_id: +python#1
             output_handle: text
-      - handle: title
+      - handle: book
         value:
+        from_node:
+          - node_id: read-highlights#1
+            output_handle: book
   - task:
       ui:
         default_width: 450

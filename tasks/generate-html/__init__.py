@@ -2,21 +2,23 @@ from io import StringIO
 from html import escape
 from epubcfi import parse
 from epubcfi.parser import ParsedPath
-from shared.types import Anotation
+from shared.types import Book, Anotation
 
 def main(params: dict):
-  title: str | None = params["title"]
   styles: str | None = params["styles"]
+  book: Book = Book(**params["book"])
+
   buffer = StringIO()
   buffer.write("<html>\n")
 
-  _wrtie_head(buffer, title, styles)
-  _write_body(buffer, title, params["highlights"])
+  _wrtie_head(buffer, book, styles)
+  _write_body(buffer, book, params["highlights"])
 
   buffer.write("</html>")
   return { "html": buffer.getvalue() }
 
-def _wrtie_head(buffer: StringIO, title: str | None, styles: str | None):
+def _wrtie_head(buffer: StringIO, book: Book, styles: str | None):
+  title: str | None = book.title or book.short_title
   buffer.write("<head>\n")
   buffer.write('<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">\n')
   buffer.write('<meta charset="UTF-8">\n')
@@ -31,15 +33,27 @@ def _wrtie_head(buffer: StringIO, title: str | None, styles: str | None):
     buffer.write("</style>")
   buffer.write("</head>\n")
 
-def _write_body(buffer: StringIO, title: str | None, highlights: list[dict]):
+def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
+  title: str | None = book.title or book.short_title
+  author: str | None = book.author or book.short_author
   a_icon = "https://api.iconify.design/academicons:academia-square.svg?color=%23888888"
   chat_icon = "https://api.iconify.design/fluent-mdl2:message.svg?color=%23888888"
+
   buffer.write('<body><div class="content">\n')
 
   if title is not None:
     buffer.write("<h1>")
     buffer.write(escape(title))
     buffer.write("</h1>\n")
+  if author is not None:
+    buffer.write('<p class="author">')
+    buffer.write(escape(author))
+    buffer.write("</p>\n")
+
+  if book.description is not None:
+    buffer.write('<p class="text">')
+    buffer.write(escape(book.description))
+    buffer.write("</p>\n")
 
   for highlight in _search_highlights(highlights):
     if highlight.selected is None and highlight.note is None:
@@ -54,7 +68,7 @@ def _write_body(buffer: StringIO, title: str | None, highlights: list[dict]):
     if highlight.note is not None:
       buffer.write('<div class="row note">')
       buffer.write(f'<img class="icon" src="{chat_icon}"/>')
-      buffer.write('<p class="text">')
+      buffer.write(f'<p class="text highlight-style-{highlight.style_id}">')
       buffer.write(escape(highlight.note))
       buffer.write("</p></div>\n")
 

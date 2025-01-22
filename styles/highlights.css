@@ -13,7 +13,14 @@ html, body {
   border-bottom: 1px solid rgba(34, 34, 34, 0.1);
   box-sizing: border-box;
 }
-  
+
+.author {
+  color: rgba(34, 34, 34, 0.9);
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+}
+
 h1 {
   margin: 0;
   padding: 40px 0 0;
@@ -85,6 +92,7 @@ div.row.note > p.text {
   border: 1px solid rgba(34, 34, 34, 0.10);
   box-sizing: border-box;
   display: inline-block;
+  font-weight: normal;
   margin: -12px 8px 0;
   padding: 8px 12px;
   border-radius: 4px;
@@ -122,7 +130,31 @@ div.row.by-date {
   box-decoration-break: clone;
   -webkit-box-decoration-break:clone;
 }
-  
+
+.highlight-style-0 {
+  text-decoration: underline 2px F34734;
+}
+
+.highlight-style-1 {
+  background-color: #9AC67C;
+}
+
+.highlight-style-2 {
+  background-color: #95AAB7;
+}
+
+.highlight-style-3 {
+  background-color: #EBA21D;
+}
+
+.highlight-style-4 {
+  background-color: #EA9EAB;
+}
+
+.highlight-style-5 {
+  background-color: #C8ACC7;
+}
+
 span.highlight {
   background-color: rgb(252, 245, 164);
 }
