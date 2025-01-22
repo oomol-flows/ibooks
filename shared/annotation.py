@@ -46,7 +46,7 @@ def _search_highlights(sqlite_path: str, id: str, limit: int | None):
       epubcfi_text: str | None = row[1]
       epubcfi_parsed: epubcfi.ParsedPath | None = None
       if epubcfi_text is not None:
-        _, epubcfi_parsed = epubcfi.split(epubcfi_text)
+        epubcfi_parsed = epubcfi.parse(epubcfi_text)
 
       yield _to_nums(epubcfi_parsed), Anotation(
         id=row[0],
@@ -61,14 +61,13 @@ def _search_highlights(sqlite_path: str, id: str, limit: int | None):
 def _str_epubcfi(cfi: ParsedPath | None):
   if cfi is None:
     return None
-  text = epubcfi.format(cfi)
-  return f"epubcfi({text})"
+  return f"epubcfi({cfi})"
 
 def _to_nums(path: epubcfi.ParsedPath | None):
   if path is None:
     return []
 
-  if isinstance(path, tuple):
+  if isinstance(path, epubcfi.PathRange):
     start, _ = epubcfi.to_absolute(path)
     path = start
   

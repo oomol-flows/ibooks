@@ -22,5 +22,4 @@ def main(params: dict, context: Context):
 def _str_epubcfi(cfi: ParsedPath | None):
   if cfi is None:
     return None
-  text = epubcfi.format(cfi)
-  return f"epubcfi({text})"
+  return f"epubcfi({cfi})"
