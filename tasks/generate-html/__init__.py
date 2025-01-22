@@ -1,5 +1,6 @@
 from io import StringIO
 from html import escape
+from datetime import datetime
 from epubcfi import parse
 from epubcfi.parser import ParsedPath
 from shared.types import Book, Anotation
@@ -74,7 +75,10 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
       buffer.write("</p></div>\n")
 
     buffer.write('<div class="by-date">')
-    buffer.write('<p class="dateAndAuthor">12月 19, 17:24, Tom</p>')
+    if abs(annotation.created_at - annotation.updated_at) < 5.0:
+      buffer.write(f'<p class="dateAndAuthor">Created at {_format(annotation.created_at)}</p>')
+    else:
+      buffer.write(f'<p class="dateAndAuthor">Updated at {_format(annotation.updated_at)}</p>')
     buffer.write("</div>\n")
 
   buffer.write("</div></body>\n")
@@ -87,3 +91,8 @@ def _search_annotations(highlights: list[dict]):
       path = parse(expression)
     highlight["epubcfi"] = path
     yield Anotation(**highlight)
+
+def _format(timestamp: float) -> str:
+  date = datetime.fromtimestamp(timestamp)
+  format = date.strftime('%Y-%m-%d %H:%M:%S')
+  return format
