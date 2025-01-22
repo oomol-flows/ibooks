@@ -40,8 +40,8 @@
       "contentWidth": 450,
       "rfNode": {
         "position": {
-          "x": 2647.3727392902965,
-          "y": -52.33253128636011
+          "x": 2638.911508669277,
+          "y": -137.52181075587367
         }
       }
     },
@@ -72,6 +72,27 @@
         }
       },
       "sections": {
+        "scriptlet": {
+          "cardCollapsed": true
+        }
+      }
+    },
+    "+python#2": {
+      "contentWidth": 450,
+      "rfNode": {
+        "position": {
+          "x": 1605,
+          "y": -222.27434789666282
+        }
+      },
+      "sections": {
+        "inputs": {
+          "collapsed": {
+            "book": {
+              "[]": true
+            }
+          }
+        },
         "scriptlet": {
           "cardCollapsed": true
         }

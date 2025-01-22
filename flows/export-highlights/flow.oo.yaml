@@ -34,6 +34,9 @@ nodes:
           - node_id: encode-string#1
             output_handle: binary
       - handle: file_name
+        from_node:
+          - node_id: +python#2
+            output_handle: file_name
       - handle: output_folder
       - handle: mkdir
         value: true
@@ -80,3 +83,61 @@ nodes:
     inputs_from:
       - handle: file_path
         value: /app/workspace/styles/highlights.css
+  - task:
+      ui:
+        default_width: 450
+      inputs_def:
+        - handle: book
+          description: Input
+          json_schema:
+            type: object
+            additionalProperties: false
+            required:
+              - id
+              - entity
+              - path
+              - updated_at
+            properties:
+              id:
+                type: string
+              entity:
+                enum:
+                  - epub
+                  - pdf
+                ui:options:
+                  labels:
+                    - Epub
+                    - PDF
+              title:
+                type: string
+              short_title:
+                type: string
+              author:
+                type: string
+              short_author:
+                type: string
+              genre:
+                type: string
+              description:
+                type: string
+              path:
+                type: string
+              updated_at:
+                type: number
+      outputs_def:
+        - handle: file_name
+          description: Output
+          json_schema:
+            type: string
+      executor:
+        name: python
+        options:
+          entry: scriptlets/+python#2.py
+    title: Book's file name
+    icon: ":logos:python:"
+    node_id: +python#2
+    inputs_from:
+      - handle: book
+        from_node:
+          - node_id: read-highlights#1
+            output_handle: book
