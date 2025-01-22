@@ -6,6 +6,7 @@ scripts:
     set -e
     pip install --upgrade pip
     pip install -r requirements.txt
+    rm -rf /app/workspace/epubcfi
     git clone https://github.com/Moskize91/epubcfi.git /tmp/epubcfi
     cd /tmp/epubcfi
     git reset --hard 2f6db9bcbd0fd52f8ccf08dfbd5e0abdbdf04466

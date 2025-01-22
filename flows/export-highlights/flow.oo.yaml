@@ -1,0 +1,79 @@
+nodes:
+  - task: self::read-highlights
+    title: "Read highlights #1"
+    node_id: read-highlights#1
+    inputs_from:
+      - handle: id
+      - handle: documents
+      - handle: limit
+        value:
+  - task: oomol-preview::html-preview
+    title: "HTML preview #1"
+    node_id: html-preview#1
+    inputs_from:
+      - handle: html
+        from_node:
+          - node_id: generate-html#1
+            output_handle: html
+  - task: oomol-transform::encode-string
+    title: "Encode string #1"
+    node_id: encode-string#1
+    inputs_from:
+      - handle: string
+        from_node:
+          - node_id: generate-html#1
+            output_handle: html
+      - handle: encoding
+        value: utf_8
+  - task: oomol-file::write-file
+    title: "Write file #2"
+    node_id: write-file#2
+    inputs_from:
+      - handle: binary
+        from_node:
+          - node_id: encode-string#1
+            output_handle: binary
+      - handle: file_name
+      - handle: output_folder
+      - handle: mkdir
+        value: true
+      - handle: when_file_exists
+        value: override
+  - task: self::generate-html
+    title: "Generate HTML #1"
+    node_id: generate-html#1
+    inputs_from:
+      - handle: highlights
+        from_node:
+          - node_id: read-highlights#1
+            output_handle: highlights
+      - handle: styles
+        from_node:
+          - node_id: +python#1
+            output_handle: text
+      - handle: title
+        value:
+  - task:
+      ui:
+        default_width: 450
+      inputs_def:
+        - handle: file_path
+          description: Input
+          json_schema:
+            type: string
+            ui:widget: file
+      outputs_def:
+        - handle: text
+          description: Output
+          json_schema:
+            type: string
+      executor:
+        name: python
+        options:
+          entry: scriptlets/+python#1.py
+    title: Load file
+    icon: ":logos:python:"
+    node_id: +python#1
+    inputs_from:
+      - handle: file_path
+        value: /app/workspace/styles/highlights.css

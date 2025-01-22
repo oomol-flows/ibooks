@@ -1,46 +1,16 @@
 {
   "nodes": {
-    "list-books#1": {
-      "contentWidth": 450,
-      "rfNode": {
-        "position": {
-          "x": 369,
-          "y": 122
-        }
-      }
-    },
     "read-highlights#1": {
       "contentWidth": 450,
       "rfNode": {
         "position": {
-          "x": 974,
-          "y": 122
-        }
-      }
-    },
-    "+python#1": {
-      "contentWidth": 450,
-      "rfNode": {
-        "position": {
-          "x": 1605,
-          "y": 120
-        }
-      },
-      "sections": {
-        "inputs": {
-          "collapsed": {
-            "highlights": {
-              "[]": true
-            }
-          }
-        },
-        "scriptlet": {
-          "cardCollapsed": true
+          "x": 1046.9390225312254,
+          "y": -110.52181075587369
         }
       }
     },
     "html-preview#1": {
-      "contentWidth": 666.3909167764925,
+      "contentWidth": 836.813610638625,
       "rfNode": {
         "position": {
           "x": 2213.651789176934,
@@ -63,6 +33,29 @@
         "position": {
           "x": 2647.3727392902965,
           "y": -52.33253128636011
+        }
+      }
+    },
+    "generate-html#1": {
+      "contentWidth": 450,
+      "rfNode": {
+        "position": {
+          "x": 1605,
+          "y": 120
+        }
+      }
+    },
+    "+python#1": {
+      "contentWidth": 350,
+      "rfNode": {
+        "position": {
+          "x": 1146.8231531406354,
+          "y": 273.6674687136399
+        }
+      },
+      "sections": {
+        "scriptlet": {
+          "cardCollapsed": true
         }
       }
     }
