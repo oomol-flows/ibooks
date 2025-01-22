@@ -46,11 +46,16 @@
       }
     },
     "+python#1": {
-      "contentWidth": 526.8841306094101,
+      "contentWidth": 350,
       "rfNode": {
         "position": {
-          "x": 969.9390225312254,
+          "x": 1146.8231531406354,
           "y": 273.6674687136399
+        }
+      },
+      "sections": {
+        "scriptlet": {
+          "cardCollapsed": true
         }
       }
     }
