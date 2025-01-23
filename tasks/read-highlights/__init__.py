@@ -13,6 +13,8 @@ def main(params: dict, context: Context):
   book = get_book(documents_path, id)
   if book is None:
     raise ValueError(f"cannot find book (id={id})")
+  if book.entity != "epub":
+    raise ValueError(f"unsupported book type (entity={book.entity})")
 
   highlights = search_highlights(id, documents_path, limit)
   highlights = [
