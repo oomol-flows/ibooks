@@ -6,13 +6,6 @@ scripts:
     set -e
     pip install --upgrade pip
     pip install -r requirements.txt
-    rm -rf /app/workspace/epubcfi
-    git clone https://github.com/Moskize91/epubcfi.git /tmp/epubcfi
-    cd /tmp/epubcfi
-    git reset --hard 673182efa46c47e44ad4af63c4bb654eef6bbc34
-    mv src/epubcfi /app/workspace/epubcfi
-    cd /app/workspace
-    rm -rf /tmp/epubcfi
 icon: ./icon.png
 dependencies:
   oomol-preview: 0.0.1

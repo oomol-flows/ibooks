@@ -1,1 +1,2 @@
 Markdown==3.7
+epubcfi==0.0.1
