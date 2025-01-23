@@ -4,10 +4,10 @@ import epubcfi
 
 from . import APPLE_OFFSET
 from .utils import find_matched_file, as_none
-from .types import Anotation
+from .types import Annotation
 
 
-def search_highlights(id: str, documents_path: str, limit: int | None) -> list[Anotation]:
+def search_highlights(id: str, documents_path: str, limit: int | None) -> list[Annotation]:
   sqlite_path = find_matched_file(
     dir_path=os.path.join(documents_path, "AEAnnotation"),
     expression=r"^AEAnnotation[\w\_]+_local.sqlite$",
@@ -47,7 +47,7 @@ def _search_highlights(sqlite_path: str, id: str, limit: int | None):
         epubcfi_parsed = epubcfi.parse(epubcfi_text)
 
       if epubcfi_parsed is not None:
-        yield epubcfi_parsed, Anotation(
+        yield epubcfi_parsed, Annotation(
           id=row[0],
           epubcfi=epubcfi_parsed,
           note=as_none(row[2]),

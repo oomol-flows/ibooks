@@ -18,7 +18,7 @@ class Book:
   updated_at: float
 
 @dataclass
-class Anotation:
+class Annotation:
   id: str
   epubcfi: ParsedPath | None
   note: str | None

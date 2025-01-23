@@ -1,8 +1,8 @@
 from io import StringIO
 from html import escape
-from shared.types import Anotation
+from shared.types import Annotation
 
-def render_source(buffer: StringIO, annotation: Anotation):
+def render_source(buffer: StringIO, annotation: Annotation):
   representative = annotation.representative
   selected = annotation.selected
   offset = representative.find(selected)
