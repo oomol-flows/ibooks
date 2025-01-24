@@ -2,8 +2,7 @@ from io import StringIO
 from html import escape
 from markdown import markdown
 from datetime import datetime
-from epubcfi import parse
-from epubcfi.parser import ParsedPath
+from epubcfi import parse, ParsedPath
 from shared.types import Book, Annotation
 from .source import render_source
 
@@ -58,38 +57,73 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
     buffer.write(escape(book.description))
     buffer.write("</p>\n")
 
-  for annotation in _search_annotations(highlights):
-    if annotation.selected is None and annotation.note is None:
-      continue
+  ever_display_label: bool = False
 
-    cfi_url = _cfi_url(book, annotation)
-    buffer.write('<div class="row source">')
+  for label, annotations in _group_annotations(highlights):
+    injected_title: str | None = None
+    if label is not None:
+      ever_display_label = True
+      injected_title = label
+    elif ever_display_label:
+      injected_title = "Others"
+    
+    if injected_title is not None:
+        buffer.write("<h2>")
+        buffer.write(escape(injected_title))
+        buffer.write("</h2>\n")
 
-    if cfi_url is not None:
-      buffer.write(f'<a href="{cfi_url}">')
-    buffer.write(f'<img class="icon" src="{a_icon}"/>')
-    if cfi_url is not None:
-      buffer.write("</a>")
+    for annotation in annotations:
+      if annotation.selected is None and annotation.note is None:
+        continue
 
-    buffer.write("<p>")
-    render_source(buffer, annotation)
-    buffer.write("</p></div>\n")
+      cfi_url = _cfi_url(book, annotation)
+      buffer.write('<div class="row source">')
 
-    if annotation.note is not None:
-      buffer.write('<div class="row">')
-      buffer.write(f'<img class="icon" src="{chat_icon}"/>')
-      buffer.write(f'<div class="note note-style-{annotation.style_id}">')
-      buffer.write(markdown(annotation.note))
-      buffer.write("</div></div>\n")
+      if cfi_url is not None:
+        buffer.write(f'<a href="{cfi_url}">')
+      buffer.write(f'<img class="icon" src="{a_icon}"/>')
+      if cfi_url is not None:
+        buffer.write("</a>")
 
-    buffer.write('<div class="by-date">')
-    if abs(annotation.created_at - annotation.updated_at) < 5.0:
-      buffer.write(f'<p class="dateAndAuthor">Created at {_format(annotation.created_at)}</p>')
-    else:
-      buffer.write(f'<p class="dateAndAuthor">Updated at {_format(annotation.updated_at)}</p>')
-    buffer.write("</div>\n")
+      buffer.write("<p>")
+      render_source(buffer, annotation)
+      buffer.write("</p></div>\n")
+
+      if annotation.note is not None:
+        buffer.write('<div class="row">')
+        buffer.write(f'<img class="icon" src="{chat_icon}"/>')
+        buffer.write(f'<div class="note note-style-{annotation.style_id}">')
+        buffer.write(markdown(annotation.note))
+        buffer.write("</div></div>\n")
+
+      buffer.write('<div class="by-date">')
+      if abs(annotation.created_at - annotation.updated_at) < 5.0:
+        buffer.write(f'<p class="dateAndAuthor">Created at {_format(annotation.created_at)}</p>')
+      else:
+        buffer.write(f'<p class="dateAndAuthor">Updated at {_format(annotation.updated_at)}</p>')
+      buffer.write("</div>\n")
 
   buffer.write("</div></div></body>\n")
+
+def _group_annotations(highlights: list[dict]):
+  no_ncx_highlights: list[dict] = []
+  labels_count: int = 0
+
+  for node in highlights:
+    if node["label"] == "__no_ncx_label__":
+      no_ncx_highlights = node["highlight"]
+    else:
+      labels_count += 1
+
+  if labels_count != 0:
+    for node in highlights:
+      label: str = node["label"]
+      label_highlights: list[dict] = node["highlights"]
+      yield label, list(_search_annotations(label_highlights))
+    if len(no_ncx_highlights) > 0:
+      yield None, list(_search_annotations(no_ncx_highlights))
+  elif len(no_ncx_highlights) > 0:
+    yield None, list(_search_annotations(no_ncx_highlights))
 
 def _search_annotations(highlights: list[dict]):
   for highlight in highlights:

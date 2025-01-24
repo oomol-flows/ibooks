@@ -7,9 +7,9 @@ from .utils import find_matched_file, as_none
 from .types import Annotation
 
 
-def search_highlights(id: str, documents_path: str, limit: int | None) -> list[Annotation]:
+def search_highlights(id: str, database_path: str, limit: int | None) -> list[Annotation]:
   sqlite_path = find_matched_file(
-    dir_path=os.path.join(documents_path, "AEAnnotation"),
+    dir_path=os.path.join(database_path, "AEAnnotation"),
     expression=r"^AEAnnotation[\w\_]+_local.sqlite$",
   )
   highlights = list(_search_highlights(sqlite_path, id, limit))

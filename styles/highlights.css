@@ -117,7 +117,6 @@ img.icon {
 
 
 h1 {
-  margin: 0;
   padding: 40px 0 0;
   color: rgba(34, 34, 34, 0.9);
   font-size: 2em;
@@ -127,14 +126,16 @@ h1 {
 }
   
 h2 {
-  margin: 0;
   padding: 42px 4px 0;
   color: rgba(34, 34, 34, 0.9);
   font-size: 1.5em;
   font-weight: bold;
   line-height: 134%;
+  text-align: center;
 }
   
 h1 + h2 {
+  margin-top: 48px;
+  margin-bottom: 24px;
   padding: 32px 0 0;
 }
