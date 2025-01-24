@@ -57,7 +57,21 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
     buffer.write(escape(book.description))
     buffer.write("</p>\n")
 
+  ever_display_label: bool = False
+
   for label, annotations in _group_annotations(highlights):
+    injected_title: str | None = None
+    if label is not None:
+      ever_display_label = True
+      injected_title = label
+    elif ever_display_label:
+      injected_title = "Others"
+    
+    if injected_title is not None:
+        buffer.write("<h2>")
+        buffer.write(escape(injected_title))
+        buffer.write("</h2>\n")
+
     for annotation in annotations:
       if annotation.selected is None and annotation.note is None:
         continue
