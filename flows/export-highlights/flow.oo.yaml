@@ -7,6 +7,7 @@ nodes:
       - handle: documents
       - handle: limit
         value:
+      - handle: database
   - task: oomol-preview::html-preview
     title: "HTML preview #1"
     node_id: html-preview#1

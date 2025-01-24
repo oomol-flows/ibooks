@@ -39,31 +39,33 @@ inputs_def:
   - handle: highlights
     description: Input
     json_schema:
-      type: array
-      items:
-        type: object
-        additionalProperties: false
-        required:
-          - id
-          - selected
-          - representative
-          - created_at
-          - updated_at
-        properties:
-          id:
-            type: string
-          epubcfi:
-            type: string
-          note:
-            type: string
-          selected:
-            type: string
-          representative:
-            type: string
-          created_at:
-            type: number
-          updated_at:
-            type: number
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: object
+          additionalProperties: false
+          required:
+            - id
+            - selected
+            - representative
+            - created_at
+            - updated_at
+          properties:
+            id:
+              type: string
+            epubcfi:
+              type: string
+            note:
+              type: string
+            selected:
+              type: string
+            representative:
+              type: string
+            created_at:
+              type: number
+            updated_at:
+              type: number
   - handle: styles
     json_schema:
       type: string

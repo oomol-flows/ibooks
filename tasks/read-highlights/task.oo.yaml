@@ -3,6 +3,10 @@ inputs_def:
     description: Input
     json_schema:
       type: string
+  - handle: database
+    json_schema:
+      type: string
+      ui:widget: dir
   - handle: documents
     json_schema:
       type: string
@@ -12,8 +16,8 @@ inputs_def:
     json_schema:
       type: integer
       exclusiveMinimum: 0
-    nullable: true
     value:
+    nullable: true
 outputs_def:
   - handle: book
     json_schema:
@@ -57,29 +61,37 @@ outputs_def:
       items:
         type: object
         additionalProperties: false
-        required:
-          - id
-          - selected
-          - representative
-          - created_at
-          - updated_at
         properties:
-          id:
+          label:
             type: string
-          epubcfi:
-            type: string
-          note:
-            type: string
-          selected:
-            type: string
-          representative:
-            type: string
-          created_at:
-            type: number
-          updated_at:
-            type: number
+          highlights:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              required:
+                - id
+                - selected
+                - representative
+                - created_at
+                - updated_at
+              properties:
+                id:
+                  type: string
+                epubcfi:
+                  type: string
+                note:
+                  type: string
+                selected:
+                  type: string
+                representative:
+                  type: string
+                created_at:
+                  type: number
+                updated_at:
+                  type: number
 ui:
-  default_width: 450
+  default_width: 450.50413759591
 executor:
   name: python
   options:

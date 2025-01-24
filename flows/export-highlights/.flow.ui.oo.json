@@ -13,6 +13,9 @@
           "collapsed": {
             "book": {
               "[]": true
+            },
+            "highlights": {
+              "[]": true
             }
           }
         }
@@ -58,7 +61,8 @@
           "collapsed": {
             "book": {
               "[]": true
-            }
+            },
+            "highlights": {}
           }
         }
       }
