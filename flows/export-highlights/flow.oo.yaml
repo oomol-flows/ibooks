@@ -8,14 +8,6 @@ nodes:
       - handle: limit
         value:
       - handle: database
-  - task: oomol-preview::html-preview
-    title: "HTML preview #1"
-    node_id: html-preview#1
-    inputs_from:
-      - handle: html
-        from_node:
-          - node_id: generate-html#1
-            output_handle: html
   - task: oomol-transform::encode-string
     title: "Encode string #1"
     node_id: encode-string#1
@@ -26,23 +18,6 @@ nodes:
             output_handle: html
       - handle: encoding
         value: utf_8
-  - task: oomol-file::write-file
-    title: "Write file #2"
-    node_id: write-file#2
-    inputs_from:
-      - handle: binary
-        from_node:
-          - node_id: encode-string#1
-            output_handle: binary
-      - handle: file_name
-        from_node:
-          - node_id: +python#2
-            output_handle: file_name
-      - handle: output_folder
-      - handle: mkdir
-        value: true
-      - handle: when_file_exists
-        value: override
   - task: self::generate-html
     title: "Generate HTML #1"
     node_id: generate-html#1
@@ -142,3 +117,28 @@ nodes:
         from_node:
           - node_id: read-highlights#1
             output_handle: book
+  - task: oomol-preview::html_preview
+    title: "HTML preview #1"
+    node_id: html_preview#1
+    inputs_from:
+      - handle: html
+        from_node:
+          - node_id: generate-html#1
+            output_handle: html
+  - task: oomol-file::binary_to_file
+    title: "Binary to file #1"
+    node_id: binary_to_file#1
+    inputs_from:
+      - handle: binary
+        from_node:
+          - node_id: encode-string#1
+            output_handle: binary
+      - handle: file_name
+        from_node:
+          - node_id: +python#2
+            output_handle: file_name
+      - handle: output_folder
+      - handle: mkdir
+        value: false
+      - handle: when_file_exists
+        value: override
