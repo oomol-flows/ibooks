@@ -106,24 +106,24 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
   buffer.write("</div></div></body>\n")
 
 def _group_annotations(highlights: list[dict]):
-  no_ncx_highlights: list[dict] = []
+  no_ncx_annotations: list[Annotation] = []
 
   for i in range(len(highlights)):
     node = highlights[i]
     if node["label"] == "__no_ncx_label__":
       highlights.pop(i)
-      no_ncx_highlights = node["highlights"]
+      no_ncx_annotations = list(_search_annotations(node["highlights"]))
       break
 
-  if len(no_ncx_highlights) != 0:
-    for node in highlights:
-      label: str = node["label"]
-      label_highlights: list[dict] = node["highlights"]
-      yield label, list(_search_annotations(label_highlights))
-    if len(no_ncx_highlights) > 0:
-      yield None, list(_search_annotations(no_ncx_highlights))
-  elif len(no_ncx_highlights) > 0:
-    yield None, list(_search_annotations(no_ncx_highlights))
+  for node in highlights:
+    label: str = node["label"]
+    label_highlights: list[dict] = node["highlights"]
+    annotations = list(_search_annotations(label_highlights))
+    if len(annotations) > 0:
+      yield label, annotations
+
+  if len(no_ncx_annotations) > 0:
+    yield None, no_ncx_annotations
 
 def _search_annotations(highlights: list[dict]):
   for highlight in highlights:
@@ -131,9 +131,10 @@ def _search_annotations(highlights: list[dict]):
     path: ParsedPath | None = None
     if expression is not None:
       path = parse(expression)
-    params = highlight.copy()
-    params["epubcfi"] = path
-    yield Annotation(**params)
+    highlight["epubcfi"] = path
+    annotation = Annotation(**highlight)
+    if annotation.selected is not None or annotation.note is not None:
+      yield Annotation(**highlight)
 
 def _format(timestamp: float) -> str:
   date = datetime.fromtimestamp(timestamp)
