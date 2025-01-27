@@ -107,15 +107,15 @@ def _write_body(buffer: StringIO, book: Book, highlights: list[dict]):
 
 def _group_annotations(highlights: list[dict]):
   no_ncx_highlights: list[dict] = []
-  labels_count: int = 0
 
-  for node in highlights:
+  for i in range(len(highlights)):
+    node = highlights[i]
     if node["label"] == "__no_ncx_label__":
+      highlights.pop(i)
       no_ncx_highlights = node["highlights"]
-    else:
-      labels_count += 1
+      break
 
-  if labels_count != 0:
+  if len(no_ncx_highlights) != 0:
     for node in highlights:
       label: str = node["label"]
       label_highlights: list[dict] = node["highlights"]
