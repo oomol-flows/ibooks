@@ -3,6 +3,6 @@ nodes:
     title: "List books #1"
     node_id: list-books#1
     inputs_from:
-      - handle: documents
+      - handle: database
       - handle: limit
         value:
