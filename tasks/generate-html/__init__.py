@@ -131,8 +131,9 @@ def _search_annotations(highlights: list[dict]):
     path: ParsedPath | None = None
     if expression is not None:
       path = parse(expression)
-    highlight["epubcfi"] = path
-    yield Annotation(**highlight)
+    params = highlight.copy()
+    params["epubcfi"] = path
+    yield Annotation(**params)
 
 def _format(timestamp: float) -> str:
   date = datetime.fromtimestamp(timestamp)
