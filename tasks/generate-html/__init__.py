@@ -111,7 +111,7 @@ def _group_annotations(highlights: list[dict]):
 
   for node in highlights:
     if node["label"] == "__no_ncx_label__":
-      no_ncx_highlights = node["highlight"]
+      no_ncx_highlights = node["highlights"]
     else:
       labels_count += 1
 
