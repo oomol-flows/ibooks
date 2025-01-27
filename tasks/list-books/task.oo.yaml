@@ -1,5 +1,5 @@
 inputs_def:
-  - handle: documents
+  - handle: database
     description: Input
     json_schema:
       type: string
@@ -8,8 +8,8 @@ inputs_def:
     json_schema:
       type: integer
       exclusiveMinimum: 0
-    nullable: true
     value:
+    nullable: true
 outputs_def:
   - handle: books
     json_schema:
