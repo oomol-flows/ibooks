@@ -184,6 +184,9 @@ def _row_to_book(row: Any):
       return None
     title, short_title = with_short(row[2], row[3])
     author, short_author = with_short(row[4], row[5])
+    updated_at = row[9]
+    if updated_at is not None:
+      updated_at += APPLE_OFFSET
 
     return Book(
       id=row[1],
@@ -195,7 +198,7 @@ def _row_to_book(row: Any):
       genre=as_none(row[6]),
       description=as_none(row[7]),
       path=norm_path(row[8]),
-      updated_at=row[9] + APPLE_OFFSET,
+      updated_at=updated_at,
     )
 
 def _parse_entity(entity: int) -> BookEntity | None:
