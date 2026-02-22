@@ -8,6 +8,20 @@
           "y": 134
         }
       }
+    },
+    "+python#1": {
+      "contentWidth": 632.1927759605154,
+      "rfNode": {
+        "position": {
+          "x": 745.9166544311586,
+          "y": 134
+        }
+      },
+      "sections": {
+        "scriptlet": {
+          "cardCollapsed": true
+        }
+      }
     }
   }
 }
