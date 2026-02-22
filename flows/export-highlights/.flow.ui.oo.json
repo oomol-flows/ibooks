@@ -85,7 +85,7 @@
       }
     },
     "html_preview#1": {
-      "contentWidth": 450,
+      "contentWidth": 350,
       "rfNode": {
         "position": {
           "x": 2213.651789176934,
@@ -94,7 +94,7 @@
       }
     },
     "binary_to_file#1": {
-      "contentWidth": 450,
+      "contentWidth": 350,
       "rfNode": {
         "position": {
           "x": 2646.949497310674,

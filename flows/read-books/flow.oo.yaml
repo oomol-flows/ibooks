@@ -6,3 +6,59 @@ nodes:
       - handle: database
       - handle: limit
         value:
+  - node_id: +python#1
+    title: "Preview List"
+    icon: ":logos:python:"
+    task:
+      ui:
+        default_width: 450
+      inputs_def:
+        - handle: books
+          json_schema:
+            type: array
+            items:
+              type: object
+              additionalProperties: false
+              required:
+                - id
+                - entity
+                - path
+                - updated_at
+              properties:
+                id:
+                  type: string
+                entity:
+                  enum:
+                    - epub
+                    - pdf
+                  ui:options:
+                    labels:
+                      - Epub
+                      - PDF
+                title:
+                  type: string
+                short_title:
+                  type: string
+                author:
+                  type: string
+                short_author:
+                  type: string
+                genre:
+                  type: string
+                description:
+                  type: string
+                path:
+                  type: string
+                updated_at:
+                  type: number
+      outputs_def:
+        []
+      executor:
+        name: python
+        options:
+          entry: scriptlets/+scriptlet#1.py
+    inputs_from:
+      - handle: books
+        from_node:
+          - node_id: list-books#1
+            output_handle: books
